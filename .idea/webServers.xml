@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="4f3d1e77-d4a6-4c3d-b73c-ba1d00147a89" name="VisualizationVM">
+        <fileTransfer rootFolder="/home/user01/Projekte/WvWDataCollectorResultsBackend" accessType="SFTP" host="141.28.73.145" port="22" sshConfigId="62da8edc-710b-4e99-afc3-9d410c15923e" sshConfig="user01@141.28.73.145:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
