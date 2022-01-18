@@ -64,8 +64,9 @@ function initBloodlustBonusDoughnutChart() {
                         let index = tooltipItem.index;
                         let value = data.datasets[0].data[index];
                         let sum = data.datasets[0].data.reduce((pv, cv) => pv + cv, 0);
+                        let percentage = (value*100/sum);
 
-                        return value*100/sum + "% of the time";
+                        return percentage.toFixed(2) + "% of the time";
                     }
                 },
                 enabled: true
