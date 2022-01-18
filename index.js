@@ -14,7 +14,8 @@ app.get('/', (req, res) => {
 
 app.post('/victorymetrics', async (req, res) => {
     let databasename = req.body.databaseName;
-    let result = await MongoDBHandler.retrieveVictoryMetrics(databasename).toArray();
+    let filter = req.body.filter;
+    let result = await MongoDBHandler.retrieveVictoryMetrics(databasename, filter);
     res.json({victorymetrics : result});
 });
 

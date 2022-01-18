@@ -14,8 +14,9 @@ html {
             padding: 1%;
         }
 
-        #testdata {
-            color: $foregroundColour;
+        canvas {
+            width : 45%;
+            height: 45%;
         }
     }
 }

@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var MongoClient = require('mongodb').MongoClient;
 var client = new MongoClient('mongodb://141.28.73.145:27017/');
+var DateTime = require("luxon").DateTime;
 var MongoDBHandler = /** @class */ (function () {
     function MongoDBHandler() {
         if (this.mongoDBConnection === null || this.mongoDBConnection === undefined) {
@@ -57,20 +58,78 @@ var MongoDBHandler = /** @class */ (function () {
             });
         });
     };
-    MongoDBHandler.prototype.retrieveVictoryMetrics = function (dbName) {
-        return this.mongoDBConnection.db(dbName).collection("victorymetrics").find({});
+    MongoDBHandler.prototype.retrieveVictoryMetrics = function (dbName, filter) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.mongoDBConnection.db(dbName).collection("victorymetrics").find(MongoDBHandler.getIntervalFilter(filter))];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result.toArray()];
+                }
+            });
+        });
     };
-    MongoDBHandler.prototype.retrieveBonuses = function (dbName) {
-        return this.mongoDBConnection.db(dbName).collection("mapbonuses").find({});
+    MongoDBHandler.prototype.retrieveBonuses = function (dbName, filter) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.mongoDBConnection.db(dbName).collection("mapbonuses").find(MongoDBHandler.getIntervalFilter(filter))];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result.toArray()];
+                }
+            });
+        });
     };
-    MongoDBHandler.prototype.retrieveTotalFlips = function (dbName) {
-        return this.mongoDBConnection.db(dbName).collection("totalflips").find({});
+    MongoDBHandler.prototype.retrieveTotalFlips = function (dbName, filter) {
+        var result = this.mongoDBConnection.db(dbName).collection("totalflips").find(MongoDBHandler.getIntervalFilter(filter));
+        return result.toArray();
     };
-    MongoDBHandler.prototype.retrievePeakTime = function (dbName) {
-        return this.mongoDBConnection.db(dbName).collection("peaktime").find({});
+    MongoDBHandler.prototype.retrievePeakTime = function (dbName, filter) {
+        return __awaiter(this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.mongoDBConnection.db(dbName).collection("peaktime").find(MongoDBHandler.getIntervalFilter(filter))];
+                    case 1:
+                        result = _a.sent();
+                        return [2 /*return*/, result.toArray()];
+                }
+            });
+        });
     };
     MongoDBHandler.prototype.close = function () {
         this.mongoDBConnection.close();
+    };
+    MongoDBHandler.getIntervalFilter = function (filter) {
+        var intervalTimestamps = this.getIntervalTimestampsByFilter(filter);
+        return {
+            timestamp: {
+                $gte: intervalTimestamps[0],
+                $lte: intervalTimestamps[1]
+            }
+        };
+    };
+    MongoDBHandler.getIntervalTimestampsByFilter = function (filter) {
+        var intervalTimestamps = [];
+        var endTimestamp = DateTime.now();
+        var startTimestamp = endTimestamp;
+        switch (filter) {
+            case 'hour':
+                intervalTimestamps.push(startTimestamp.minus({ hours: 1 }).toString());
+                break;
+            case 'day':
+                intervalTimestamps.push(startTimestamp.minus({ days: 1 }).toString());
+                break;
+            case 'week':
+                intervalTimestamps.push(startTimestamp.minus({ days: 7 }).toString());
+                break;
+        }
+        intervalTimestamps.push(endTimestamp.toString());
+        return intervalTimestamps;
     };
     return MongoDBHandler;
 }());

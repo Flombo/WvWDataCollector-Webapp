@@ -11,8 +11,9 @@ html body nav {
   background-color: #fff;
   padding: 1%;
 }
-html body #testdata {
-  color: #fff;
+html body canvas {
+  width: 45%;
+  height: 45%;
 }
 
 /*# sourceMappingURL=index.css.map */
