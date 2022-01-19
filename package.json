@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/Flombo/WvWDataCollectorVisualizationBackend#readme",
   "dependencies": {
+    "chart.js": "^3.7.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.2",
+    "luxon": "^2.3.0",
     "mongodb": "^4.3.0"
   },
   "devDependencies": {

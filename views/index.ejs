@@ -3,12 +3,16 @@
     <head>
         <title>GW2-WvW-Datacollector-Dashboard</title>
         <link rel="stylesheet" href="../public/styles/index.css">
-        <script type="module" src="public/js/test.js"></script>
+        <script type="application/javascript" src="node_modules/chart.js/dist/chart.js"></script>
+        <script type="module" src="../public/js/ChartInitializer.js"></script>
     </head>
 </html>
 <body>
     <nav>
         <h1>GW2-WvW-Datacollector</h1>
     </nav>
-    <canvas id="victoryMetricsLineChart"></canvas>
+    <div style="display: flex; width: 1920px; height: 990px; align-content: space-evenly; flex-direction: row" id="chartContainer">
+        <canvas id="victoryMetricsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="victoryMetricsPopulationLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+    </div>
 </body>

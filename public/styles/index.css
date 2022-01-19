@@ -1,19 +1,17 @@
 html {
   top: 0;
   margin: 0;
-  background-color: #252525;
+  background-color: #fff;
 }
 html body {
   top: 0;
   margin: 0;
+  overflow: hidden;
 }
 html body nav {
-  background-color: #fff;
+  background-color: #252525;
+  color: #fff;
   padding: 1%;
-}
-html body canvas {
-  width: 45%;
-  height: 45%;
 }
 
 /*# sourceMappingURL=index.css.map */
