@@ -10,12 +10,14 @@ window.onload = async () => {
     let victoryPointsAndTimestamp = victoryMetrics.slice(0, 3);
     victoryPointsAndTimestamp.push(victoryMetrics[victoryMetrics.length - 1]);
 
-    const populationAndTimestamp = victoryMetrics.slice(4, victoryMetrics.length - 1);
+    const populationAndTimestamp = victoryMetrics.slice(3, victoryMetrics.length);
 
     victoryPointsChart = initPopLineChart(victoryPointsAndTimestamp, 'Victory-points per Match', 'victoryMetricsLineChart', 'victoryPoints');
     populationChart = initPopLineChart(populationAndTimestamp, 'Population per Match', 'victoryMetricsPopulationLineChart', 'population');
 
-    setInterval(updateCharts(), 60000);
+    setInterval(() => {
+        updateCharts().then();
+    }, 30000);
 }
 
 async function updateCharts() {
@@ -28,18 +30,18 @@ async function updateCharts() {
     const populationAndTimestamp = victoryMetrics.slice(3, victoryMetrics.length);
 
     victoryPointsChart.data = buildData(victoryPointsAndTimestamp, 'victoryPoints');
-    victoryPointsChart.update('none');
+    victoryPointsChart.update();
 
     populationChart.data = buildData(populationAndTimestamp, 'population');
     //none prevents the chart from playing animations when updating
-    populationChart.update('none');
+    populationChart.update();
 }
 
 async function pullVictoryMetrics() {
 
     let data = {
         databaseName : '2-1',
-        filter : 'hour'
+        filter : 'week'
     };
 
     let options = optionsHelper(data);
@@ -99,7 +101,7 @@ function initPopLineChart(victoryMetrics, titleText, canvasID, dataType) {
         type: 'line', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
         data: buildData(victoryMetrics, dataType),
         options: {
-            bezierCurve: false,
+            bezierCurve: true,
             title: {
                 display: true,
                 text: titleText,
@@ -139,31 +141,31 @@ function buildData(victoryMetrics, dataType) {
             datasets: [
                 {
                     label: 'Red Team',
-                    lineTension: 0,
+                    // lineTension: 0,
                     fill: false,
                     data: victoryMetrics[0],
                     backgroundColor: red,
-                    borderWidth: 7,
+                    borderWidth: 1,
                     borderColor: red,
                     hoverBorderWidth: 3,
                 },
                 {
                     label: 'Blue Team',
-                    lineTension: 0,
+                    // lineTension: 0,
                     fill: false,
                     data: victoryMetrics[1],
                     backgroundColor: blue,
-                    borderWidth: 7,
+                    borderWidth: 1,
                     borderColor: blue,
                     hoverBorderWidth: 3,
                 },
                 {
                     label: 'Green Team',
-                    lineTension: 0,
+                    // lineTension: 0,
                     fill: false,
                     data: victoryMetrics[2],
                     backgroundColor: green,
-                    borderWidth: 7,
+                    borderWidth: 1,
                     borderColor: green,
                     hoverBorderWidth: 3,
                 }
