@@ -9,31 +9,57 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname));
 
 app.get('/', (req, res) => {
-    res.render('index.ejs');
+
+    let selection = { "selection" : 'vm' };
+
+    if(req.query.viewselection !== undefined) {
+        switch (req.query.viewselection) {
+            case 'vm':
+                selection.selection = 'vm';
+                break;
+            case 'pt':
+                selection.selection = 'pt';
+                break;
+            case 'tp':
+                selection.selection = 'tp';
+                break;
+            case 'mb':
+                selection.selection = 'mb';
+                break;
+            case 'db':
+                selection.selection = 'db';
+                break;
+        }
+    }
+
+    res.render('index.ejs', selection);
 })
 
 app.post('/victorymetrics', async (req, res) => {
-    let databasename = req.body.databaseName;
+    let databaseName = req.body.databaseName;
     let filter = req.body.filter;
-    let result = await MongoDBHandler.retrieveVictoryMetrics(databasename, filter);
+    let result = await MongoDBHandler.retrieveVictoryMetrics(databaseName, filter);
     res.json({victorymetrics : result});
 });
 
 app.post('/peaktime', async(req, res) => {
     let databaseName = req.body.databaseName;
-    let result = await MongoDBHandler.retrievePeakTime(databaseName).toArray();
+    let filter = req.body.filter;
+    let result = await MongoDBHandler.retrievePeakTime(databaseName, filter);
     res.send(result);
 });
 
 app.post('/bonuses', async(req, res) => {
     let databaseName = req.body.databaseName;
-    let result = await MongoDBHandler.retrieveBonuses(databaseName).toArray();
+    let filter = req.body.filter;
+    let result = await MongoDBHandler.retrieveBonuses(databaseName, filter);
     res.send(result);
 });
 
 app.post('/totalflips', async(req, res) => {
     let databaseName = req.body.databaseName;
-    let result = await MongoDBHandler.retrieveTotalFlips(databaseName).toArray();
+    let filter = req.body.filter;
+    let result = await MongoDBHandler.retrieveTotalFlips(databaseName, filter);
     res.send(result);
 });
 

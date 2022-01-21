@@ -12,6 +12,15 @@ html body nav {
   background-color: #252525;
   color: #fff;
   padding: 1%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+html body nav label {
+  align-self: center;
+}
+html body nav form {
+  align-self: center;
 }
 
 /*# sourceMappingURL=index.css.map */

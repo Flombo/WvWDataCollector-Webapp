@@ -8,11 +8,32 @@
     </head>
 </html>
 <body>
-    <nav>
-        <h1>GW2-WvW-Datacollector</h1>
-    </nav>
+    <%- include('./navbar.ejs', {"selection" : selection}); %>
     <div style="display: flex; width: 1920px; height: 990px; align-content: space-evenly; flex-direction: row" id="chartContainer">
+        <% switch (selection) {
+        case 'vm' : %>
         <canvas id="victoryMetricsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
-        <canvas id="victoryMetricsPopulationLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="populationLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <% break;
+        case 'db' : %>
+        <canvas id="victoryMetricsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="populationLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="peakTimeLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="mapBonusesDonutChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="totalFlipsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <% break;
+        case 'pt' : %>
+        <canvas id="peakTimeLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="victoryMetricsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <% break;
+        case 'mb' : %>
+        <canvas id="mapBonusesDonutChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="victoryPointsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <% break;
+        case 'tp' : %>
+        <canvas id="totalFlipsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="populationLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <% break;
+        } %>
     </div>
 </body>

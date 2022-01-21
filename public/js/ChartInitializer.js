@@ -2,8 +2,24 @@ import optionsHelper from "./postOptionsHelper.js";
 
 let victoryPointsChart;
 let populationChart;
+let filterOption = 'hour';
+let databaseNameOption = '2-1';
 
 window.onload = async () => {
+
+    const selects = document.getElementsByTagName("select");
+    const intervalSelect = selects[0];
+    intervalSelect.addEventListener('change', () => {
+        filterOption = intervalSelect.selectedOptions[0].value
+        updateCharts();
+    });
+
+    const matchSelect = selects[1];
+    matchSelect.addEventListener('change', () => {
+        databaseNameOption = matchSelect.selectedOptions[0].value;
+        updateCharts();
+    });
+
     const victoryMetricsJSON = await pullVictoryMetrics();
     const victoryMetrics = retrieveVictoryMetrics(victoryMetricsJSON);
 
@@ -13,7 +29,7 @@ window.onload = async () => {
     const populationAndTimestamp = victoryMetrics.slice(3, victoryMetrics.length);
 
     victoryPointsChart = initPopLineChart(victoryPointsAndTimestamp, 'Victory-points per Match', 'victoryMetricsLineChart', 'victoryPoints');
-    populationChart = initPopLineChart(populationAndTimestamp, 'Population per Match', 'victoryMetricsPopulationLineChart', 'population');
+    populationChart = initPopLineChart(populationAndTimestamp, 'Population per Match', 'populationLineChart', 'population');
 
     setInterval(() => {
         updateCharts().then();
@@ -40,8 +56,8 @@ async function updateCharts() {
 async function pullVictoryMetrics() {
 
     let data = {
-        databaseName : '2-1',
-        filter : 'week'
+        databaseName : databaseNameOption,
+        filter : filterOption
     };
 
     let options = optionsHelper(data);

@@ -1,0 +1,34 @@
+<nav>
+    <h1>GW2-WvW-Datacollector</h1>
+    <label>
+        Interval-selection:
+        <select>
+            <option>Hour</option>
+            <option>Day</option>
+            <option>Week</option>
+            <option>Match</option>
+        </select>
+    </label>
+    <label>
+        Match-selection:
+        <select>
+            <option>2-1</option>
+            <option>2-2</option>
+            <option>2-3</option>
+            <option>2-4</option>
+            <option>2-5</option>
+        </select>
+    </label>
+    <form action="/" method="get">
+        <label>
+            Current View:
+            <select name="viewselection" onchange="this.form.submit()">
+                <option value="vm" <%if(selection === 'vm'){%> selected <%}%>>Victory Metrics</option>
+                <option value="pt" <%if(selection === 'pt'){%> selected <%}%>>Peaktime</option>
+                <option value="tp" <%if(selection === 'tp'){%> selected <%}%>>Total Flips</option>
+                <option value="mb" <%if(selection === 'mb'){%> selected <%}%>>Map Bonuses</option>
+                <option value="db" <%if(selection === 'db'){%> selected <%}%>>Dashboard</option>
+            </select>
+        </label>
+    </form>
+</nav>
