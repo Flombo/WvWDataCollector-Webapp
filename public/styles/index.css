@@ -22,5 +22,15 @@ html body nav label {
 html body nav form {
   align-self: center;
 }
+html body #dashboardcharts {
+  align-content: space-evenly;
+}
+html body #dashboardcharts canvas {
+  max-width: 16%;
+}
+html body canvas {
+  max-width: 45%;
+  max-height: 80%;
+}
 
 /*# sourceMappingURL=index.css.map */

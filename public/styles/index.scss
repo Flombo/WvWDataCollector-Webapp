@@ -27,5 +27,17 @@ html {
             }
         }
 
+        #dashboardcharts {
+            align-content: space-evenly;
+            canvas {
+                max-width: 16%;
+            }
+        }
+
+        canvas {
+            max-width: 45%;
+            max-height: 80%
+        }
+
     }
 }

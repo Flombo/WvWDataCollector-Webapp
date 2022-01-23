@@ -1,10 +1,28 @@
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
-        <title>GW2-WvW-Datacollector-Dashboard</title>
+        <title>GW2-WvW-Datacollector</title>
         <link rel="stylesheet" href="../public/styles/index.css">
         <script type="application/javascript" src="node_modules/chart.js/dist/chart.js"></script>
-        <script type="module" src="../public/js/ChartInitializer.js"></script>
+        <link rel="stylesheet" href="../public/js/Datepicker.js-master/dist/css/datepicker.minimal.css">
+        <script type="application/javascript" src="../public/js/Datepicker.js-master/dist/datepicker.js"></script>
+        <%switch(selection) {
+        case 'vm' : %>
+        <script type="module" src="../public/js/VictoryMetricsChartInitializer.js"></script>
+        <% break;
+        case 'db' : %>
+        <script type="module" src="../public/js/DashboardChartInitializer.js"></script>
+        <% break;
+        case 'pt' : %>
+        <script type="module" src="../public/js/PeakTimeChartInitializer.js"></script>
+        <% break;
+        case 'mb' : %>
+        <script type="module" src="../public/js/MapBonusChartInitializer.js"></script>
+        <% break;
+        case 'tp' : %>
+        <script type="module" src="../public/js/TotalFlipsChartInitializer.js"></script>
+        <% break;
+        } %>
     </head>
 </html>
 <body>
@@ -12,27 +30,32 @@
     <div style="display: flex; width: 1920px; height: 990px; align-content: space-evenly; flex-direction: row" id="chartContainer">
         <% switch (selection) {
         case 'vm' : %>
-        <canvas id="victoryMetricsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
-        <canvas id="populationLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="victoryMetricsLineChart" title="line">
+        </canvas>
+        <canvas id="populationBarChart" title="bar">
+        </canvas>
         <% break;
         case 'db' : %>
-        <canvas id="victoryMetricsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
-        <canvas id="populationLineChart" style="max-width: 45%; max-height: 80%"></canvas>
-        <canvas id="peakTimeLineChart" style="max-width: 45%; max-height: 80%"></canvas>
-        <canvas id="mapBonusesDonutChart" style="max-width: 45%; max-height: 80%"></canvas>
-        <canvas id="totalFlipsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <div id="dashboardcharts" style="width: 100%; display: flex; flex-direction: row">
+            <canvas id="victoryMetricsLineChart" title="line"></canvas>
+            <canvas id="populationBarChart" title="bar"></canvas>
+            <canvas id="peakTimeLineChart" title="line"></canvas>
+            <canvas id="mapBonusesLineChart" title="line"></canvas>
+            <canvas id="totalFlipsLineChart" title="line"></canvas>
+            <canvas id="totalFlipsDoughnutChart" title="doughnut"></canvas>
+        </div>
         <% break;
         case 'pt' : %>
-        <canvas id="peakTimeLineChart" style="max-width: 45%; max-height: 80%"></canvas>
-        <canvas id="victoryMetricsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="peakTimeLineChart" title="line"></canvas>
+        <canvas id="peakTimeBarChart" title="doughnut"></canvas>
         <% break;
         case 'mb' : %>
-        <canvas id="mapBonusesDonutChart" style="max-width: 45%; max-height: 80%"></canvas>
-        <canvas id="victoryPointsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="mapBonusesLineChart" title="line"></canvas>
+        <canvas id="victoryMetricsLineChart" title="line"></canvas>
         <% break;
         case 'tp' : %>
-        <canvas id="totalFlipsLineChart" style="max-width: 45%; max-height: 80%"></canvas>
-        <canvas id="populationLineChart" style="max-width: 45%; max-height: 80%"></canvas>
+        <canvas id="totalFlipsLineChart" title="line"></canvas>
+        <canvas id="totalFlipsDoughnutChart" title="doughnut"></canvas>
         <% break;
         } %>
     </div>

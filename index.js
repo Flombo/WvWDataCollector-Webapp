@@ -46,21 +46,21 @@ app.post('/peaktime', async(req, res) => {
     let databaseName = req.body.databaseName;
     let filter = req.body.filter;
     let result = await MongoDBHandler.retrievePeakTime(databaseName, filter);
-    res.send(result);
+    res.json({peaktime : result});
 });
 
 app.post('/bonuses', async(req, res) => {
     let databaseName = req.body.databaseName;
     let filter = req.body.filter;
     let result = await MongoDBHandler.retrieveBonuses(databaseName, filter);
-    res.send(result);
+    res.json({bonuses : result});
 });
 
 app.post('/totalflips', async(req, res) => {
     let databaseName = req.body.databaseName;
     let filter = req.body.filter;
     let result = await MongoDBHandler.retrieveTotalFlips(databaseName, filter);
-    res.send(result);
+    res.json({totalflips : result});
 });
 
 server.listen(3000, '141.28.73.145');

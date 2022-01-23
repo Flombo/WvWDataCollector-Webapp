@@ -20,7 +20,7 @@ canvas#populationBarChart {
     height: 20%!important;
     margin-top: 80px;
 }
-canvas#populationLineChart {
+canvas#populationBarChart {
     width: 70%!important;
     height: 20%!important;
     margin-top: 80px;
