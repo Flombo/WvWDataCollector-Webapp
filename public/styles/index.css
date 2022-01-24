@@ -27,6 +27,7 @@ html body #dashboardcharts {
 }
 html body #dashboardcharts canvas {
   max-width: 16%;
+  max-height: 80%;
 }
 html body canvas {
   max-width: 45%;

@@ -1,6 +1,7 @@
 let red = 'rgba(255, 0, 0, 0.6)';
 let blue = 'rgba(0, 0, 255, 0.6)';
 let green = 'rgba(0, 255, 0, 0.6)';
+let violet = '#000';
 
 export default function buildChartDataProperties(data, labels, type) {
 
@@ -26,7 +27,7 @@ export default function buildChartDataProperties(data, labels, type) {
 function buildDoughnutDataObject(data, labels) {
     const doughnutData = [];
 
-    for(let i = 0; i < data.length - 1; i++) {
+    for(let i = 0; i < data.length; i++) {
         let length = data[i].length;
         let sum = 0;
         let innerDataArray = data[i];
@@ -44,7 +45,7 @@ function buildDoughnutDataObject(data, labels) {
             {
                 fill: false,
                 data: doughnutData,
-                backgroundColor: [red, blue, green],
+                backgroundColor: [red, blue, green, violet],
                 borderWidth: 1,
                 borderColor: red,
                 hoverBorderWidth: 3,

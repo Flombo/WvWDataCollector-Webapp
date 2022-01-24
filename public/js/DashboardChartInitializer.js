@@ -113,7 +113,7 @@ window.onload = async () => {
     const totalFlipsJSON = await sendPostRequest(databaseNameOption, filterOption, '/totalflips');
     const totalflips = extractChartData(totalFlipsJSON, 'totalflips');
 
-    let totalFlipsAndTimestamps = totalflips.slice(0, 3);
+    let totalFlipsAndTimestamps = totalflips.slice(0, 4);
     totalFlipsAndTimestamps.push(totalflips[totalflips.length - 1]);
 
     const totalFlipsCanvas = document.getElementById('totalFlipsLineChart');
@@ -216,7 +216,7 @@ async function updateCharts() {
     const totalFlipsJSON = await sendPostRequest(databaseNameOption, filterOption, '/totalflips');
     const totalFlips = extractChartData(totalFlipsJSON, 'totalflips');
 
-    let totalFlipsAndTimestamps = totalFlips.slice(0, 3);
+    let totalFlipsAndTimestamps = totalFlips.slice(0, 4);
     totalFlipsAndTimestamps.push(totalFlips[totalFlips.length - 1]);
 
     totalFlipsChart.data = buildChartDataProperties(totalFlipsAndTimestamps, labelsTotalFlips, 'line');

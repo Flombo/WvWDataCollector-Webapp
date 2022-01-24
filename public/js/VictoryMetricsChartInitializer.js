@@ -11,7 +11,9 @@ let starttimestampOption = '';
 let labelsVictoryPoints;
 let labelsPopulation;
 
-window.onload = async () => {
+window.onload = () => initChart().then();
+
+async function initChart() {
     const datetimepicker = document.getElementById('datetimepicker');
 
     const datepicker = new Datepicker(datetimepicker, {
