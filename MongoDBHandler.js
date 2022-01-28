@@ -58,14 +58,14 @@ var MongoDBHandler = /** @class */ (function () {
             });
         });
     };
-    MongoDBHandler.prototype.retrieveVictoryMetrics = function (dbName, filter) {
+    MongoDBHandler.prototype.retrieveVictoryMetrics = function (dbName, filter, datetime) {
         return __awaiter(this, void 0, void 0, function () {
             var result, _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _b = (_a = this.mongoDBConnection.db(dbName).collection("victorymetrics")).find;
-                        return [4 /*yield*/, this.getIntervalFilter(filter, dbName, "victorymetrics")];
+                        return [4 /*yield*/, this.getIntervalFilter(filter, dbName, datetime, "victorymetrics")];
                     case 1: return [4 /*yield*/, _b.apply(_a, [_c.sent()])];
                     case 2:
                         result = _c.sent();
@@ -74,14 +74,14 @@ var MongoDBHandler = /** @class */ (function () {
             });
         });
     };
-    MongoDBHandler.prototype.retrieveBonuses = function (dbName, filter) {
+    MongoDBHandler.prototype.retrieveBonuses = function (dbName, filter, datetime) {
         return __awaiter(this, void 0, void 0, function () {
             var result, _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _b = (_a = this.mongoDBConnection.db(dbName).collection("mapbonuses")).find;
-                        return [4 /*yield*/, this.getIntervalFilter(filter, dbName, "mapbonuses")];
+                        return [4 /*yield*/, this.getIntervalFilter(filter, dbName, datetime, "mapbonuses")];
                     case 1: return [4 /*yield*/, _b.apply(_a, [_c.sent()])];
                     case 2:
                         result = _c.sent();
@@ -90,14 +90,14 @@ var MongoDBHandler = /** @class */ (function () {
             });
         });
     };
-    MongoDBHandler.prototype.retrieveTotalFlips = function (dbName, filter) {
+    MongoDBHandler.prototype.retrieveTotalFlips = function (dbName, filter, datetime) {
         return __awaiter(this, void 0, void 0, function () {
             var result, _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _b = (_a = this.mongoDBConnection.db(dbName).collection("totalflips")).find;
-                        return [4 /*yield*/, this.getIntervalFilter(filter, dbName, "totalflips")];
+                        return [4 /*yield*/, this.getIntervalFilter(filter, dbName, datetime, "totalflips")];
                     case 1:
                         result = _b.apply(_a, [_c.sent()]);
                         return [2 /*return*/, result.toArray()];
@@ -105,14 +105,14 @@ var MongoDBHandler = /** @class */ (function () {
             });
         });
     };
-    MongoDBHandler.prototype.retrievePeakTime = function (dbName, filter) {
+    MongoDBHandler.prototype.retrievePeakTime = function (dbName, filter, datetime) {
         return __awaiter(this, void 0, void 0, function () {
             var result, _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _b = (_a = this.mongoDBConnection.db(dbName).collection("peaktime")).find;
-                        return [4 /*yield*/, this.getIntervalFilter(filter, dbName, "peaktime")];
+                        return [4 /*yield*/, this.getIntervalFilter(filter, dbName, datetime, "peaktime")];
                     case 1: return [4 /*yield*/, _b.apply(_a, [_c.sent()])];
                     case 2:
                         result = _c.sent();
@@ -124,12 +124,12 @@ var MongoDBHandler = /** @class */ (function () {
     MongoDBHandler.prototype.close = function () {
         this.mongoDBConnection.close();
     };
-    MongoDBHandler.prototype.getIntervalFilter = function (filter, dbName, collectionName) {
+    MongoDBHandler.prototype.getIntervalFilter = function (filter, dbName, datetime, collectionName) {
         return __awaiter(this, void 0, void 0, function () {
             var intervalTimestamps;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getIntervalTimestampsByFilter(filter, dbName, collectionName)];
+                    case 0: return [4 /*yield*/, this.getIntervalTimestampsByFilter(filter, dbName, datetime, collectionName)];
                     case 1:
                         intervalTimestamps = _a.sent();
                         return [2 /*return*/, {
@@ -142,7 +142,7 @@ var MongoDBHandler = /** @class */ (function () {
             });
         });
     };
-    MongoDBHandler.prototype.getIntervalTimestampsByFilter = function (filter, dbName, collectionName) {
+    MongoDBHandler.prototype.getIntervalTimestampsByFilter = function (filter, dbName, datetime, collectionName) {
         return __awaiter(this, void 0, void 0, function () {
             var intervalTimestamps, endTimestamp, startTimestamp, _a, documentCursor, document_1;
             return __generator(this, function (_b) {
@@ -150,6 +150,9 @@ var MongoDBHandler = /** @class */ (function () {
                     case 0:
                         intervalTimestamps = [];
                         endTimestamp = DateTime.now();
+                        if (datetime !== undefined && datetime.length > 0 && DateTime.fromISO(datetime) !== undefined) {
+                            endTimestamp = DateTime.fromISO(datetime);
+                        }
                         startTimestamp = endTimestamp;
                         _a = filter;
                         switch (_a) {

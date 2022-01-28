@@ -5,6 +5,7 @@ app.use(express.json());
 const http = require('http');
 const MongoDBHandler = require("./MongoDBHandler");
 const server = http.createServer(app);
+const ChartDataRetriever = require('./ChartDataRetriever');
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname));
 
@@ -38,29 +39,38 @@ app.get('/', (req, res) => {
 app.post('/victorymetrics', async (req, res) => {
     let databaseName = req.body.databaseName;
     let filter = req.body.filter;
-    let result = await MongoDBHandler.retrieveVictoryMetrics(databaseName, filter);
-    res.json({victorymetrics : result});
+    let datetime = req.body.datetime;
+    let result = await MongoDBHandler.retrieveVictoryMetrics(databaseName, filter, datetime);
+    const victoryMetrics = ChartDataRetriever.getVictoryMetrcisData(result);
+    res.json({"victorymetrics" : victoryMetrics});
 });
 
 app.post('/peaktime', async(req, res) => {
     let databaseName = req.body.databaseName;
     let filter = req.body.filter;
-    let result = await MongoDBHandler.retrievePeakTime(databaseName, filter);
-    res.json({peaktime : result});
+    let datetime = req.body.datetime;
+    let result = await MongoDBHandler.retrievePeakTime(databaseName, filter, datetime);
+    const peaktime = ChartDataRetriever.getPeaktimeData(result);
+    res.json({"peaktime" : peaktime});
 });
 
 app.post('/bonuses', async(req, res) => {
     let databaseName = req.body.databaseName;
     let filter = req.body.filter;
-    let result = await MongoDBHandler.retrieveBonuses(databaseName, filter);
-    res.json({bonuses : result});
+    let datetime = req.body.datetime;
+    let result = await MongoDBHandler.retrieveBonuses(databaseName, filter, datetime);
+    const mapbonuses = ChartDataRetriever.getMapBonusesData(result);
+    res.json({"bonuses" : mapbonuses});
 });
 
 app.post('/totalflips', async(req, res) => {
+    console.log('hello')
     let databaseName = req.body.databaseName;
     let filter = req.body.filter;
-    let result = await MongoDBHandler.retrieveTotalFlips(databaseName, filter);
-    res.json({totalflips : result});
+    let datetime = req.body.datetime;
+    let result = await MongoDBHandler.retrieveTotalFlips(databaseName, filter, datetime);
+    const totalFlips = ChartDataRetriever.getTotalFlipsData(result);
+    res.json({totalflips : totalFlips});
 });
 
 server.listen(3000, '141.28.73.145');

@@ -16,30 +16,30 @@ class MongoDBHandler {
         this.mongoDBConnection = await client.connect();
     }
 
-    public async retrieveVictoryMetrics(dbName : string, filter : string) : Promise<string> {
+    public async retrieveVictoryMetrics(dbName : string, filter : string, datetime : string) : Promise<string> {
 
-        const result = await this.mongoDBConnection.db(dbName).collection("victorymetrics").find(await this.getIntervalFilter(filter, dbName, "victorymetrics"));
-
-        return result.toArray();
-    }
-
-    public async retrieveBonuses(dbName : string, filter : string) : Promise<string> {
-
-        const result = await this.mongoDBConnection.db(dbName).collection("mapbonuses").find(await this.getIntervalFilter(filter, dbName, "mapbonuses"));
+        const result = await this.mongoDBConnection.db(dbName).collection("victorymetrics").find(await this.getIntervalFilter(filter, dbName, datetime,"victorymetrics"));
 
         return result.toArray();
     }
 
-    public async retrieveTotalFlips(dbName : string, filter : string) : Promise<string> {
+    public async retrieveBonuses(dbName : string, filter : string, datetime : string) : Promise<string> {
 
-        const result = this.mongoDBConnection.db(dbName).collection("totalflips").find(await this.getIntervalFilter(filter, dbName, "totalflips"));
+        const result = await this.mongoDBConnection.db(dbName).collection("mapbonuses").find(await this.getIntervalFilter(filter, dbName, datetime,"mapbonuses"));
 
         return result.toArray();
     }
 
-    public async retrievePeakTime(dbName : string, filter : string) : Promise<string>{
+    public async retrieveTotalFlips(dbName : string, filter : string, datetime : string) : Promise<string> {
 
-        const result = await this.mongoDBConnection.db(dbName).collection("peaktime").find(await this.getIntervalFilter(filter, dbName, "peaktime"));
+        const result = this.mongoDBConnection.db(dbName).collection("totalflips").find(await this.getIntervalFilter(filter, dbName, datetime, "totalflips"));
+
+        return result.toArray();
+    }
+
+    public async retrievePeakTime(dbName : string, filter : string, datetime : string) : Promise<string>{
+
+        const result = await this.mongoDBConnection.db(dbName).collection("peaktime").find(await this.getIntervalFilter(filter, dbName, datetime,"peaktime"));
 
         return result.toArray();
     }
@@ -48,9 +48,9 @@ class MongoDBHandler {
         this.mongoDBConnection.close();
     }
 
-    private async getIntervalFilter(filter : string, dbName : string, collectionName : string) : Promise<Object> {
+    private async getIntervalFilter(filter : string, dbName : string, datetime : string, collectionName : string) : Promise<Object> {
 
-        const intervalTimestamps : Array<string> = await this.getIntervalTimestampsByFilter(filter, dbName, collectionName);
+        const intervalTimestamps : Array<string> = await this.getIntervalTimestampsByFilter(filter, dbName, datetime, collectionName);
 
         return {
             timestamp: {
@@ -60,9 +60,14 @@ class MongoDBHandler {
         };
     }
 
-    private async getIntervalTimestampsByFilter(filter : string, dbName : string, collectionName : string) : Promise<Array<string>> {
+    private async getIntervalTimestampsByFilter(filter : string, dbName : string, datetime : string, collectionName : string) : Promise<Array<string>> {
         let intervalTimestamps : Array<string> =  [];
         let endTimestamp = DateTime.now();
+
+        if(datetime !== undefined && datetime.length > 0 && DateTime.fromISO(datetime) !== undefined) {
+            endTimestamp = DateTime.fromISO(datetime);
+        }
+
         let startTimestamp = endTimestamp;
 
         switch (filter) {

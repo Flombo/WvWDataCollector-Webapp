@@ -1,8 +1,9 @@
-export default async function (databaseName, filter, url) {
+export default async function (databaseName, filter, datetimeOption, url) {
 
     const data = {
         databaseName : databaseName,
-        filter : filter
+        filter : filter,
+        datetime : datetimeOption
     }
 
     const options = {

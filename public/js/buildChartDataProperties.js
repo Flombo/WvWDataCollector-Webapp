@@ -2,6 +2,7 @@ let red = 'rgba(255, 0, 0, 0.6)';
 let blue = 'rgba(0, 0, 255, 0.6)';
 let green = 'rgba(0, 255, 0, 0.6)';
 let violet = '#000';
+let colors = [red, blue, green, violet];
 
 export default function buildChartDataProperties(data, labels, type) {
 
@@ -15,9 +16,6 @@ export default function buildChartDataProperties(data, labels, type) {
 
         case 'line':
             dataObject = buildLineChartDataObject(data, labels);
-            break;
-        case 'bar':
-            dataObject = buildBarDataObject(data, labels);
             break;
     }
 
@@ -55,77 +53,25 @@ function buildDoughnutDataObject(data, labels) {
 }
 
 function buildLineChartDataObject(data, labels) {
-    return {
-        labels: data[data.length - 1],
-        datasets: [
-            {
-                label: labels[0],
-                fill: false,
-                data: data[0],
-                backgroundColor: red,
-                borderWidth: 1,
-                borderColor: red,
-                hoverBorderWidth: 3,
-            },
-            {
-                label: labels[1],
-                fill: false,
-                data: data[1],
-                backgroundColor: blue,
-                borderWidth: 1,
-                borderColor: blue,
-                hoverBorderWidth: 3,
-            },
-            {
-                label: labels[2],
-                fill: false,
-                data: data[2],
-                backgroundColor: green,
-                borderWidth: 1,
-                borderColor: green,
-                hoverBorderWidth: 3,
-            }
-        ]
-    }
-}
 
-function buildBarDataObject(data, labels) {
+    const datasets = [];
+
+    for(let i = 0; i < data.length - 1; i++) {
+        let dataObject = {
+            label: labels[i],
+            fill: false,
+            data: data[i],
+            backgroundColor: colors[i],
+            borderWidth: 1,
+            borderColor: colors[i],
+            hoverBorderWidth: 3,
+        };
+
+        datasets.push(dataObject);
+    }
+
     return {
         labels: data[data.length - 1],
-        datasets: [
-            {
-                label: labels[0],
-                data: [
-                    data[0]
-                ],
-                backgroundColor: red,
-                borderWidth: 1,
-                borderColor: '#777',
-                hoverBorderWidth: 3,
-                hoverBorderColor: '#000'
-            },
-            {
-                label: labels[1],
-                data: [
-                    data[1]
-                ],
-                backgroundColor: blue,
-                borderWidth: 1,
-                borderColor: '#777',
-                hoverBorderWidth: 3,
-                hoverBorderColor: '#000'
-            },
-            {
-                label: labels[2],
-                data: [
-                    data[2]
-                ],
-                backgroundColor: green,
-                borderWidth: 1,
-                borderColor: '#777',
-                hoverBorderWidth: 3,
-                hoverBorderColor: '#000'
-            }
-        ]
+        datasets: datasets
     }
 }

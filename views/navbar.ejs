@@ -2,7 +2,7 @@
     <h1>GW2-WvW-Datacollector</h1>
     <label for="datetimepicker">
         Optional start-timestamp:
-        <input id="datetimepicker" type="text" data-open-on="today" data-time="true">
+        <input id="datetimepicker" type="datetime-local"/>
     </label>
     <label>
         Interval-selection:
@@ -22,6 +22,10 @@
             <option>2-4</option>
             <option>2-5</option>
         </select>
+    </label>
+    <label for="enableUpdateCheckbox">
+        Chart-Updates de-/activate
+        <input id="enableUpdateCheckbox" type="checkbox">
     </label>
     <form action="/" method="get">
         <label>
