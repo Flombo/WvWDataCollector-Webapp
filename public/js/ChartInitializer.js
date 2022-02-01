@@ -3,7 +3,7 @@ import WvWChart from "./WvWChart.js";
 let charts = [];
 let filterOption = 'Hour';
 let databaseNameOption = '2-1';
-let datetimeOption = '';
+let datetimeOption = '2022-01-29T11:30';
 let shouldUpdateCharts = false;
 let enableUpdateCheckbox;
 
@@ -27,6 +27,7 @@ window.onload = () => {
 
 function initDatetimepicker() {
     const datetimepicker = document.getElementById('datetimepicker');
+    datetimepicker.value = '2022-01-29T11:30';
 
     datetimepicker.addEventListener('input', async () => {
        datetimeOption = datetimepicker.value;

@@ -64,7 +64,6 @@ app.post('/bonuses', async(req, res) => {
 });
 
 app.post('/totalflips', async(req, res) => {
-    console.log('hello')
     let databaseName = req.body.databaseName;
     let filter = req.body.filter;
     let datetime = req.body.datetime;

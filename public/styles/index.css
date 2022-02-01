@@ -34,5 +34,8 @@ html body canvas {
   max-width: 45%;
   max-height: 80%;
 }
+html body #totalFlipsLineChart {
+  max-width: 90%;
+}
 
 /*# sourceMappingURL=index.css.map */
