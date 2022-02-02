@@ -31,9 +31,11 @@ export default class WvWChart {
         return extractChartData(json, this._canvas.id);
     }
 
-    async updateChart(databaseNameOption, filterOption, datetimeOption) {
+    async updateChart(databaseNameOption, filterOption, datetimeOption, titleText) {
         const data = await this.retrieveData(databaseNameOption, filterOption, datetimeOption);
         this._chart.data = buildChartDataProperties(data.data, data.labels, this._type);
+        console.log(titleText)
+        this._chart.options.plugins.title.text = titleText + filterOption;
         this._chart.update();
     }
 

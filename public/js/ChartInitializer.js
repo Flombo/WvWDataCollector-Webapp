@@ -5,6 +5,10 @@ let filterOption = 'Hour';
 let databaseNameOption = '2-1';
 let datetimeOption = '2022-01-29T11:30';
 let shouldUpdateCharts = false;
+const peaktimeTitle = 'Peak-time per :';
+const totalFlipsTitle = 'Captures per map per :';
+const mapbonusesTitle = 'Map-bonuses per :';
+const victoryMetricsTitle = 'Victory-points per :';
 let enableUpdateCheckbox;
 
 window.onload = () => {
@@ -65,19 +69,19 @@ function initChartsByCanvases() {
 
         switch (canvas.id) {
             case 'peakTimeLineChart':
-                charts.push(new WvWChart(canvas.title, 'Peak-time per ' + filterOption, '/peaktime', databaseNameOption, filterOption, datetimeOption, canvas));
+                charts.push(new WvWChart(canvas.title, peaktimeTitle + filterOption, '/peaktime', databaseNameOption, filterOption, datetimeOption, canvas));
                 break;
             case 'peakTimeDoughnutChart':
-                charts.push(new WvWChart(canvas.title, 'Peak-time per ' + filterOption, '/peaktime', databaseNameOption, filterOption, datetimeOption, canvas));
+                charts.push(new WvWChart(canvas.title, peaktimeTitle + filterOption, '/peaktime', databaseNameOption, filterOption, datetimeOption, canvas));
                 break;
             case 'mapBonusesLineChart':
-                charts.push(new WvWChart(canvas.title, 'Map-bonuses per ' + filterOption, '/bonuses', databaseNameOption, filterOption, datetimeOption, canvas));
+                charts.push(new WvWChart(canvas.title, mapbonusesTitle + filterOption, '/bonuses', databaseNameOption, filterOption, datetimeOption, canvas));
                 break;
             case 'victoryMetricsLineChart':
-                charts.push(new WvWChart(canvas.title, 'Victory-points per ' + filterOption, '/victorymetrics', databaseNameOption, filterOption, datetimeOption, canvas));
+                charts.push(new WvWChart(canvas.title, victoryMetricsTitle + filterOption, '/victorymetrics', databaseNameOption, filterOption, datetimeOption, canvas));
                 break;
             case 'totalFlipsLineChart':
-                charts.push(new WvWChart(canvas.title, 'Captures per map per ' + filterOption, '/totalflips', databaseNameOption, filterOption, datetimeOption, canvas));
+                charts.push(new WvWChart(canvas.title, totalFlipsTitle + filterOption, '/totalflips', databaseNameOption, filterOption, datetimeOption, canvas));
                 break;
         }
     }
@@ -85,6 +89,6 @@ function initChartsByCanvases() {
 
 async function updateCharts() {
     for (const chart of charts) {
-        await chart.updateChart(databaseNameOption, filterOption, datetimeOption);
+        await chart.updateChart(databaseNameOption, filterOption, datetimeOption, chart._title.split(':')[0] +  ':');
     }
 }
