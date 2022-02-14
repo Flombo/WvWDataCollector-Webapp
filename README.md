@@ -9,10 +9,8 @@
 
   1. Install dependencies
   
-    ```
     Go to the WvWDataCollector-Webapp root folder
     Run npm install
-    ```
     
   2. Run the app
     ```
