@@ -8,10 +8,12 @@
 # Instructions
 
   1. Install dependencies
+  
     ```
     Go to the WvWDataCollector-Webapp root folder
     Run npm install
     ```
+    
   2. Run the app
     ```
     node index.js
@@ -19,4 +21,4 @@
     
   Alternatively you could use a process manager like pm2 for managing the backend.
   
-  > 2018 Shirin Mian & Florian Pfützenreuter
+  > 2022 Shirin Mian & Florian Pfützenreuter
